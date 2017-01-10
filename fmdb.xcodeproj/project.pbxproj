@@ -6,6 +6,20 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		0D2796DB1E24B67000312E50 /* FMDB iOS universal framework */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 0D2796DC1E24B67000312E50 /* Build configuration list for PBXAggregateTarget "FMDB iOS universal framework" */;
+			buildPhases = (
+				0D2796DF1E24B67600312E50 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = "FMDB iOS universal framework";
+			productName = "FMDB iOS universal framework";
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		3354379C19E71096005661F3 /* FMResultSetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3354379B19E71096005661F3 /* FMResultSetTests.m */; };
 		40A145FE1BE5759400E5D35E /* FMDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = CCC24EBA0A13E34D00A6D3E3 /* FMDatabase.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -566,6 +580,10 @@
 			attributes = {
 				LastUpgradeCheck = 0710;
 				TargetAttributes = {
+					0D2796DB1E24B67000312E50 = {
+						CreatedOnToolsVersion = 8.2;
+						ProvisioningStyle = Automatic;
+					};
 					83C73EFD1C326AB000FFC730 = {
 						CreatedOnToolsVersion = 7.2;
 					};
@@ -598,6 +616,7 @@
 				6290CBB4188FE836009790F8 /* FMDB-IOS */,
 				83C73EFD1C326AB000FFC730 /* FMDB iOS */,
 				83C73F0A1C326ADA00FFC730 /* FMDB MacOS */,
+				0D2796DB1E24B67000312E50 /* FMDB iOS universal framework */,
 			);
 		};
 /* End PBXProject section */
@@ -626,6 +645,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0D2796DF1E24B67600312E50 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Sets the target folders and the final framework product.\n# 如果工程名称和Framework的Target名称不一样的话，要自定义FMKNAME\n# 例如: FMK_NAME = \"MyFramework\"\n\nFMK_NAME=\"fmdb\"\n\nINSTALL_DIR=${SRCROOT}/Products/${FMK_NAME}.framework\n\nWRK_DIR=build\nDEVICE_DIR=${WRK_DIR}/Release-iphoneos/${FMK_NAME}.framework\nSIMULATOR_DIR=${WRK_DIR}/Release-iphonesimulator/${FMK_NAME}.framework\n\nTARGET_NAME=\"FMDB iOS\"\nxcodebuild -configuration \"Release\" -target \"${TARGET_NAME}\" -sdk iphoneos clean build\nxcodebuild -configuration \"Release\" -target \"${TARGET_NAME}\" -sdk iphonesimulator clean build\n\nif [ -d \"${INSTALL_DIR}\" ]\nthen\nrm -rf \"${INSTALL_DIR}\"\nfi\nmkdir -p \"${INSTALL_DIR}\"\n\ncp -R \"${DEVICE_DIR}/\" \"${INSTALL_DIR}/\"\nlipo -create \"${DEVICE_DIR}/${FMK_NAME}\" \"${SIMULATOR_DIR}/${FMK_NAME}\" -output \"${INSTALL_DIR}/${FMK_NAME}\"\n#rm -r \"${WRK_DIR}\" #为了调试，可以不删除WRK_DIR！！\nopen \"${INSTALL_DIR}\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		6290CBB1188FE836009790F8 /* Sources */ = {
@@ -732,6 +767,20 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		0D2796DD1E24B67000312E50 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		0D2796DE1E24B67000312E50 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		1DEB927508733DD40010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -748,6 +797,7 @@
 				GCC_WARN_SHADOW = YES;
 				INSTALL_PATH = "$(HOME)/bin";
 				LIBRARY_SEARCH_PATHS = "$(LIBRARY_SEARCH_PATHS)";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_NAME = fmdb;
 			};
 			name = Debug;
@@ -767,6 +817,7 @@
 				GCC_WARN_SHADOW = YES;
 				INSTALL_PATH = "$(HOME)/bin";
 				LIBRARY_SEARCH_PATHS = "$(LIBRARY_SEARCH_PATHS)";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_NAME = fmdb;
 			};
 			name = Release;
@@ -1151,6 +1202,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0D2796DC1E24B67000312E50 /* Build configuration list for PBXAggregateTarget "FMDB iOS universal framework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0D2796DD1E24B67000312E50 /* Debug */,
+				0D2796DE1E24B67000312E50 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		1DEB927408733DD40010E9CD /* Build configuration list for PBXNativeTarget "fmdb" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
