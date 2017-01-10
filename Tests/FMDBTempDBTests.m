@@ -8,8 +8,8 @@
 
 #import "FMDBTempDBTests.h"
 
-static NSString *const testDatabasePath = @"/tmp/tmp.db";
-static NSString *const populatedDatabasePath = @"/tmp/tmp-populated.db";
+static NSString *const testDatabasePath = @"/tmp/tmp.db";//self.db打开的是这个文件
+static NSString *const populatedDatabasePath = @"/tmp/tmp-populated.db";//create table在这个文件操作，这个文件是固定内容。每次-setUp时都复制到testDatabasePath
 
 @implementation FMDBTempDBTests
 

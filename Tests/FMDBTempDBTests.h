@@ -12,6 +12,7 @@
 @protocol FMDBTempDBTests <NSObject>
 
 @optional
+// 打开一个空的数据库，然后进行操作。一般是create table语句
 + (void)populateDatabase:(FMDatabase *)database;
 
 @end

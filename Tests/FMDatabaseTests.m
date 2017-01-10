@@ -333,7 +333,8 @@
 - (void)testNullValues
 {
     [self.db executeUpdate:@"create table t2 (a integer, b integer)"];
-    
+
+    //nil到sqlite中会变成Null
     BOOL result = [self.db executeUpdate:@"insert into t2 values (?, ?)", nil, [NSNumber numberWithInt:5]];
     XCTAssertTrue(result, @"Failed to insert a nil value");
     
